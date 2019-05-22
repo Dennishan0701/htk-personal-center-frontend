@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>跳转中</title>
+  </head>
+  <body>
+    <div>等待跳转</div>
+    <a id="jump" href="">如果不自动跳转请点击这里...</a>
+
+  </body>
+  <script>
+    function GetUrlPara() {
+      var url = document.location.toString();
+      var arrUrl = url.split('?');
+      var para;
+      if (arrUrl.length === 2) para = arrUrl[1];
+      return para;
+    }
+    // console.log()
+    var url = '/#/center?' + GetUrlPara();
+    document.getElementById('jump').href = url;
+    setTimeout(function () {
+      window.location.replace('/#/center?' + GetUrlPara())
+    }, 0)
+  </script>
+</html>

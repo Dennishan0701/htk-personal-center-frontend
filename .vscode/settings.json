@@ -1,0 +1,27 @@
+{
+  "eslint.autoFixOnSave": true,
+  // "editor.formatOnSave": true,
+
+  "eslint.options": {
+    // "configFile": "E:/git/github/styleguide/eslint/.eslintrc.js"
+  },
+  "files.associations": {
+    "*.vue": "vue"
+  },
+
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "vue",
+      "autoFix": true
+    }
+  ],
+  "vetur.format.defaultFormatter.html": "prettyhtml",
+  // "vetur.format.defaultFormatter.js": "vscode-typ=script",
+  "vetur.format.defaultFormatterOptions": {
+    "prettyhtml": {
+      "printWidth": 80,
+    }
+  }
+}

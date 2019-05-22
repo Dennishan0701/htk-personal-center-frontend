@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>跳转中</title>
+  </head>
+  <script>
+    (function(documents, windows) {
+      var domElement = documents.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        setRem = function() {
+          var clientWidth = domElement.clientWidth;
+          if (!clientWidth) return;
+          if (clientWidth >= 750) {
+            domElement.style.fontSize = '100px';
+          } else {
+            domElement.style.fontSize = 100 * (clientWidth / 750) + 'px';
+          }
+        };
+
+      if (!documents.addEventListener) return;
+      setRem();
+      windows.addEventListener(resizeEvt, setRem, false);
+      documents.addEventListener('DOMContentLoaded', setRem, false);
+    })(document, window);
+  </script>
+  <style>
+    .main-temp {
+      display: flex;
+      justify-content: center;
+      font-family: PingFangSC-Regular;
+      font-weight: 400;
+      background-image: url('/img/empty.png');
+      background-position-x: initial;
+      background-position-y: initial;
+      background-size: initial;
+      background-repeat: initial;
+      background-attachment: initial;
+      background-origin: initial;
+      background-clip: initial;
+      background-color: initial;
+    }
+    #nav {
+      background: #eee;
+      min-height: 100vh;
+      /* border: 1px solid red; */
+      width: 100%;
+      max-width: 750px;
+      padding: 0.2rem;
+      display: flex;
+      justify-content: center;
+    }
+    @media (min-width: 750px) {
+    }
+    .part-box {
+      width: 7.1rem;
+      height: 2.9rem;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 0.12rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .part-title {
+      font-size: 0.2rem;
+      line-height: 0.2rem;
+      font-weight: 400;
+      color: rgba(181, 176, 176, 1);
+      margin-top: 0.72rem;
+      z-index: 0;
+    }
+    .part-input {
+      font-size: 0.6rem;
+      line-height: 0.6rem;
+      color: rgba(51, 51, 51, 1);
+      display: flex;
+      align-items: center;
+      margin-top: 0.3rem;
+    }
+    .part-input::after {
+      content: '';
+      height: 0.2rem;
+      width: 0.4rem;
+
+      font-size: 0.3rem;
+      line-height: 0.3rem;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url('/img/edit.png');
+    }
+    .part-dollar {
+      width: 0.4rem;
+      font-size: 0.4rem;
+      line-height: 0.4rem;
+      /* align-self: flex-end; */
+    }
+    .part-buttom {
+    }
+    .input-width {
+      /* width: 01rem; */
+      width: min-content;
+      margin-top: -0.6rem;
+    }
+    .input-width > div {
+      width: fit-content;
+      height: 0.6rem;
+      color: #fff;
+      z-index: -5;
+    }
+    .input-width > #jump {
+      text-decoration: none;
+      width: 100%;
+      display: block;
+      border: none;
+      -webkit-appearance: none;
+      /* width: 3.1rem; */
+      color: rgb(177, 177, 177);
+      font-size: 0.6rem;
+      line-height: 0.6rem;
+      /* height: 0.6rem; */
+      padding: 0;
+      /* margin-right: 0.4rem; */
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    input[type='number'] {
+      -moz-appearance: textfield; /* Firefox */
+    }
+  </style>
+  <body>
+    <!-- <div>等待跳转</div>
+    <a id="jump" href="">如果不自动跳转请点击这里...</a> -->
+    <div class="main-temp">
+      <div id="nav">
+        <div class="part-box">
+          <div class="part-title">您即将跳转到支付页面，失败请</div>
+          <div class="part-input">
+            <div class="part-dollar">￥</div>
+            <div class="input-width">
+              <div>{{ price }}</div>
+              <a
+                id="jump"
+                style="min-width:2.5rem"
+                v-model="price"
+                @blur="checkNum"
+                placeholder="请输入金额"
+                type="number"
+              >
+                点击跳转
+              </a>
+            </div>
+          </div>
+          <!-- <goAndPayButton
+            style="margin-top: .6rem"
+            btnText="去支付"
+            :grayOrOrange="gray"
+            :clickFunc="()=>{$router.push('/order_pay')}"
+          ></goAndPayButton>-->
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function GetUrlPara() {
+      var url = document.location.toString();
+      var arrUrl = url.split('?');
+      var para;
+      if (arrUrl.length === 2) para = arrUrl[1];
+      return para;
+    }
+    // console.log()
+    var url = '/#/order_pay/?' + GetUrlPara();
+    document.getElementById('jump').href = url;
+    setTimeout(function() {
+      window.location.replace('/#/order_pay/?' + GetUrlPara());
+    }, 1000);
+  </script>
+</html>
